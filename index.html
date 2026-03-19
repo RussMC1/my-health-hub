@@ -10,61 +10,64 @@
 
     <header class="p-6 bg-white border-b sticky top-0 z-10 flex justify-between items-center">
         <div>
-            <h1 class="text-2xl font-bold text-slate-800">My Health Hub</h1>
-            <p id="status-cloud" class="text-xs text-green-600 font-bold underline">● Connected to Cloud</p>
+            <h1 class="text-2xl font-bold text-slate-800 tracking-tight">My Health Hub</h1>
+            <p id="status-cloud" class="text-[10px] text-green-600 font-bold uppercase tracking-widest">● Cloud Active</p>
         </div>
-        <div class="text-right">
-            <p class="text-xs text-slate-500">Welcome, Russ</p>
-        </div>
+        <div class="text-right"><p class="text-xs text-slate-400">Russ</p></div>
     </header>
 
     <main id="app-content" class="p-4 max-w-md mx-auto">
         
         <div id="tab-dashboard">
-            <section class="bg-blue-50 p-4 rounded-xl border border-blue-100 mb-6">
-                <h2 class="text-blue-800 font-semibold mb-2 text-sm uppercase tracking-wider">My Vitals (from FITVII)</h2>
-                <div class="flex justify-between">
-                    <div>
-                        <p class="text-xs text-slate-500 font-bold uppercase">Heart Rate</p>
-                        <p class="text-2xl font-bold text-slate-800">74 <span class="text-sm font-normal">BPM</span></p>
-                    </div>
-                    <div class="text-right">
-                        <p class="text-xs text-slate-500 font-bold uppercase">Blood Pressure</p>
-                        <p class="text-2xl font-bold text-slate-800">122/81 <span class="text-sm font-normal">mmHg</span></p>
-                    </div>
+            <div class="bg-gradient-to-br from-blue-600 to-blue-700 p-5 rounded-2xl shadow-lg mb-6 text-white">
+                <h2 class="text-blue-100 font-bold mb-3 text-xs uppercase tracking-wider">FITVII Vitals</h2>
+                <div class="flex justify-between items-center">
+                    <div><p class="text-xs opacity-80">HEART RATE</p><p class="text-3xl font-black">74 <span class="text-sm font-light">BPM</span></p></div>
+                    <div class="h-10 w-[1px] bg-white/20"></div>
+                    <div class="text-right"><p class="text-xs opacity-80">BLOOD PRESSURE</p><p class="text-3xl font-black">122/81</p></div>
                 </div>
-            </section>
-            
-            <section class="bg-white p-6 rounded-xl shadow-sm border border-slate-200 text-center">
-                <p class="text-slate-400 italic">Next Step: Link Google Fit for live updates...</p>
-            </section>
+            </div>
+            <div class="bg-white p-8 rounded-2xl border border-slate-200 text-center border-dashed">
+                <p class="text-slate-400 text-sm">Next: Linking Google Fit API...</p>
+            </div>
+        </div>
+
+        <div id="tab-logs" class="hidden">
+            <h2 class="text-xl font-bold text-slate-800 mb-4">Voice Lab</h2>
+            <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-200 mb-4 text-center">
+                <button id="record-btn" onclick="startRecording()" class="w-20 h-20 bg-red-500 rounded-full border-8 border-red-100 shadow-xl flex items-center justify-center mx-auto mb-4 hover:scale-105 transition">
+                    <span class="text-white text-2xl">🎤</span>
+                </button>
+                <p id="record-status" class="text-sm text-slate-500 font-medium italic">Tap to record Dr. Notes</p>
+                <textarea id="transcript-box" class="w-full mt-4 p-3 bg-slate-50 border rounded-xl text-sm h-32 focus:outline-none" placeholder="Transcript will appear here..."></textarea>
+                <button onclick="saveNote()" class="mt-3 w-full bg-slate-800 text-white py-3 rounded-xl font-bold">Save Note to Cloud</button>
+            </div>
+            <div id="notes-list" class="space-y-3"></div>
+        </div>
+
+        <div id="tab-schedule" class="hidden">
+            <h2 class="text-xl font-bold text-slate-800 mb-4">Appointments</h2>
+            <div class="bg-white p-6 rounded-2xl border border-slate-200 text-center italic text-slate-400 text-sm">
+                Google Calendar Sync Coming Soon
+            </div>
         </div>
 
         <div id="tab-meds" class="hidden">
-            <h2 class="text-xl font-bold text-slate-800 mb-4">Active Prescriptions</h2>
-            
-            <div id="med-list" class="space-y-3 mb-8 text-slate-700 font-medium">
-                <p class="text-sm text-slate-400 italic">Loading your prescriptions...</p>
-            </div>
-
-            <div class="bg-white p-4 rounded-xl shadow-inner border border-dashed border-slate-300">
-                <h3 class="font-bold text-slate-800 mb-2 text-sm">Add New Entry</h3>
-                <input id="medName" type="text" placeholder="Medication Name" class="w-full p-2 mb-2 border rounded">
-                <input id="medDose" type="text" placeholder="Dosage (e.g. 10mg)" class="w-full p-2 mb-2 border rounded text-sm">
-                <button onclick="saveMed()" class="w-full bg-blue-600 text-white font-bold py-2 rounded shadow-lg">Save to Cloud</button>
+            <h2 class="text-xl font-bold text-slate-800 mb-4">Prescriptions</h2>
+            <div id="med-list" class="space-y-3 mb-6"></div>
+            <div class="bg-white p-5 rounded-2xl shadow-md border border-slate-100">
+                <input id="medName" type="text" placeholder="Medication Name" class="w-full p-3 mb-2 bg-slate-50 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none">
+                <input id="medDose" type="text" placeholder="Dosage (e.g. 10mg)" class="w-full p-3 mb-3 bg-slate-50 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none">
+                <button onclick="saveMed()" class="w-full bg-blue-600 text-white font-bold py-3 rounded-xl shadow-lg">Add Medication</button>
             </div>
         </div>
     </main>
 
-    <nav class="fixed bottom-0 left-0 right-0 bg-white border-t flex justify-around p-3 shadow-2xl z-20">
-        <button onclick="showTab('dashboard')" class="nav-btn text-blue-600 text-xs font-bold flex flex-col items-center">
-            <span>🏠</span> Dashboard
-        </button>
-        <button class="text-slate-300 text-xs flex flex-col items-center"><span>📊</span> Logs</button>
-        <button class="text-slate-300 text-xs flex flex-col items-center"><span>📅</span> Schedule</button>
-        <button onclick="showTab('meds')" class="nav-btn text-slate-400 text-xs flex flex-col items-center">
-            <span>💊</span> Meds
-        </button>
+    <nav class="fixed bottom-0 left-0 right-0 bg-white/80 backdrop-blur-md border-t flex justify-around p-4 shadow-2xl z-20">
+        <button onclick="showTab('dashboard')" class="flex flex-col items-center text-blue-600"><span class="text-lg">🏠</span><span class="text-[10px] font-bold">Home</span></button>
+        <button onclick="showTab('logs')" class="flex flex-col items-center text-slate-400"><span class="text-lg">🎤</span><span class="text-[10px] font-bold">Voice</span></button>
+        <button onclick="showTab('schedule')" class="flex flex-col items-center text-slate-400"><span class="text-lg">📅</span><span class="text-[10px] font-bold">Dates</span></button>
+        <button onclick="showTab('meds')" class="flex flex-col items-center text-slate-400"><span class="text-lg">💊</span><span class="text-[10px] font-bold">Meds</span></button>
     </nav>
 
     <script type="module">
@@ -83,42 +86,71 @@
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
 
-        // TAB SWITCHING LOGIC
-        window.showTab = (tabName) => {
-            document.getElementById('tab-dashboard').classList.add('hidden');
-            document.getElementById('tab-meds').classList.add('hidden');
-            document.getElementById('tab-' + tabName).classList.remove('hidden');
+        // UI NAVIGATION
+        window.showTab = (name) => {
+            ['dashboard', 'logs', 'schedule', 'meds'].forEach(t => document.getElementById('tab-'+t).classList.add('hidden'));
+            document.getElementById('tab-'+name).classList.remove('hidden');
         };
 
-        // SAVE LOGIC
+        // VOICE TRANSCRIPTION LOGIC
+        const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
+        recognition.continuous = true;
+        recognition.interimResults = true;
+
+        window.startRecording = () => {
+            const btn = document.getElementById('record-btn');
+            const status = document.getElementById('record-status');
+            if (btn.classList.contains('bg-red-500')) {
+                recognition.start();
+                btn.classList.replace('bg-red-500', 'bg-green-500');
+                status.innerText = "Listening... Tap to stop";
+            } else {
+                recognition.stop();
+                btn.classList.replace('bg-green-500', 'bg-red-500');
+                status.innerText = "Recording paused.";
+            }
+        };
+
+        recognition.onresult = (event) => {
+            let text = "";
+            for (let i = event.resultIndex; i < event.results.length; ++i) {
+                text += event.results[i][0].transcript;
+            }
+            document.getElementById('transcript-box').value = text;
+        };
+
+        window.saveNote = async () => {
+            const text = document.getElementById('transcript-box').value;
+            if(!text) return;
+            await addDoc(collection(db, "notes"), { text, date: new Date().toLocaleString() });
+            document.getElementById('transcript-box').value = "";
+            alert("Note saved!");
+        };
+
+        // LIVE MEDS LIST
+        onSnapshot(query(collection(db, "prescriptions"), orderBy("timestamp", "desc")), (snap) => {
+            const list = document.getElementById('med-list');
+            list.innerHTML = "";
+            snap.forEach(doc => {
+                list.innerHTML += `<div class="p-4 bg-white border border-slate-100 rounded-xl shadow-sm flex justify-between items-center"><div class="font-bold text-slate-800">${doc.data().name}<div class="text-[10px] text-slate-400 font-normal uppercase">${doc.data().dosage}</div></div><span class="text-blue-500 text-[10px] font-black uppercase">Active</span></div>`;
+            });
+        });
+
+        // LIVE NOTES LIST
+        onSnapshot(query(collection(db, "notes"), orderBy("date", "desc")), (snap) => {
+            const list = document.getElementById('notes-list');
+            list.innerHTML = "";
+            snap.forEach(doc => {
+                list.innerHTML += `<div class="p-4 bg-slate-100 rounded-xl text-sm"><p class="font-bold text-[10px] text-slate-400 mb-1">${doc.data().date}</p>${doc.data().text}</div>`;
+            });
+        });
+
         window.saveMed = async () => {
             const name = document.getElementById('medName').value;
             const dose = document.getElementById('medDose').value;
-            if(!name) return alert("Please enter a name");
-            try {
-                await addDoc(collection(db, "prescriptions"), {
-                    name: name,
-                    dosage: dose,
-                    timestamp: new Date()
-                });
-                document.getElementById('medName').value = "";
-                document.getElementById('medDose').value = "";
-            } catch (e) { console.error(e); }
-        }
-
-        // AUTO-LOAD LIST LOGIC
-        const q = query(collection(db, "prescriptions"), orderBy("timestamp", "desc"));
-        onSnapshot(q, (snapshot) => {
-            const medList = document.getElementById('med-list');
-            medList.innerHTML = "";
-            snapshot.forEach((doc) => {
-                const data = doc.data();
-                const item = document.createElement('div');
-                item.className = "p-3 bg-white border border-slate-200 rounded-lg flex justify-between items-center shadow-sm";
-                item.innerHTML = `<div><p class="font-bold text-slate-800">${data.name}</p><p class="text-xs text-slate-500">${data.dosage}</p></div><span class="text-blue-500 text-xs">Active</span>`;
-                medList.appendChild(item);
-            });
-        });
+            await addDoc(collection(db, "prescriptions"), { name, dosage: dose, timestamp: new Date() });
+            document.getElementById('medName').value = ""; document.getElementById('medDose').value = "";
+        };
     </script>
 </body>
 </html>
